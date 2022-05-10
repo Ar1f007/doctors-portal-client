@@ -5,3 +5,4 @@ export { Button } from './Shared/Button';
 export { Banner } from './Homepage/Banner';
 export { Info } from './Homepage/Info';
 export { Services } from './Homepage/Services';
+export { Appointment } from './Homepage/Appointment';

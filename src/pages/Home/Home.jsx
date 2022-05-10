@@ -1,13 +1,18 @@
-import { Banner, Info, Services } from '../../components';
+import { Appointment, Banner, Info, Services } from '../../components';
 import { Treatment } from '../../components/Homepage/Treatment';
 
 export const Home = () => {
   return (
-    <div>
-      <Banner />
-      <Info />
-      <Services />
-      <Treatment />
-    </div>
+    <>
+      <header>
+        <Banner />
+      </header>
+      <main>
+        <Info />
+        <Services />
+        <Treatment />
+        <Appointment />
+      </main>
+    </>
   );
 };
