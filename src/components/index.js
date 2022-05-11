@@ -7,3 +7,4 @@ export { Info } from './Homepage/Info';
 export { Services } from './Homepage/Services';
 export { Appointment } from './Homepage/Appointment';
 export { Testimonial } from './Homepage/Testimonial';
+export { ContactUs } from './Homepage/ContactUs';

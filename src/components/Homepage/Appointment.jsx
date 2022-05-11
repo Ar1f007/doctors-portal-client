@@ -1,14 +1,10 @@
 import doctor from '../../assets/images/doctor.png';
-import appointment from '../../assets/images/appointment.png';
 import { Button } from '../Shared/Button';
 
 export const Appointment = () => {
   return (
     <section className="lg:pt-20 pb-12">
-      <section
-        className="flex justify-center items-center py-12 px-9 lg:py-0 lg:px-0"
-        style={{ backgroundImage: `url(${appointment})` }}
-      >
+      <section className="flex justify-center items-center py-12 px-9 lg:py-0 lg:px-0 bg-[url('https://i.ibb.co/hXvVCKX/appointment.png')]">
         <figure className="flex-1 mt-[-150px] hidden lg:flex justify-center">
           <img src={doctor} alt="doctor" className="max-h-[600px]" />
         </figure>

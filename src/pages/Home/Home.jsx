@@ -1,4 +1,4 @@
-import { Appointment, Banner, Info, Services, Testimonial } from '../../components';
+import { Appointment, Banner, ContactUs, Info, Services, Testimonial } from '../../components';
 import { Treatment } from '../../components/Homepage/Treatment';
 
 export const Home = () => {
@@ -13,6 +13,7 @@ export const Home = () => {
         <Treatment />
         <Appointment />
         <Testimonial />
+        <ContactUs />
       </main>
     </>
   );
