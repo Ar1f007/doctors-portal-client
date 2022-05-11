@@ -1,6 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import { Footer, Navbar } from './components';
 import { Appointment, About, Home, Login } from './pages';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
       </Routes>
 
       <Footer />
+      <ToastContainer />
     </>
   );
 }

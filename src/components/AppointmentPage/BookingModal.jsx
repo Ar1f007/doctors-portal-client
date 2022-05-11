@@ -7,7 +7,7 @@ export const BookingModal = ({ treatment, setTreatment, date }) => {
     e.preventDefault();
 
     const slot = e.target.slot.value;
-    console.log(e.target.slot);
+    console.log(slot);
     setTreatment(null);
   };
   return (
