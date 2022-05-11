@@ -1,10 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { Footer, Navbar } from './components';
 import { Appointment, About, Home, Login } from './pages';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  const location = useLocation();
   return (
     <>
       <Navbar />
@@ -16,7 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
       </Routes>
 
-      <Footer />
+      {location.pathname !== '/login' && <Footer />}
       <ToastContainer />
     </>
   );

@@ -2,6 +2,8 @@ export { Navbar } from './Shared/Navbar';
 export { NavLinks } from './Shared/NavLinks';
 export { Button } from './Shared/Button';
 export { Spinner } from './Shared/Spinner';
+export { SocialLogin } from './Shared/SocialLogin';
+export { FormRow } from './Shared/FormRow';
 export { Footer } from './Shared/Footer';
 
 export { Banner } from './Homepage/Banner';
