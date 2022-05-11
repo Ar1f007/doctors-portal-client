@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
+import footer from '../../assets/images/footer.png';
 
 export const Footer = () => {
   return (
-    <footer className="p-10">
+    <footer
+      className="py-10 lg:pt-32 lg:pb-10"
+      style={{
+        background: `url(${footer}) no-repeat center center`,
+        backgroundSize: 'cover',
+      }}
+    >
       <div>
-        <section className="footer text-neutral max-w-[1366px] mx-auto footer-center lg:footer">
+        <section className="footer text-neutral max-w-[1366px] mt-[-100px] mx-auto footer-center lg:footer">
           <div>
             <span className="footer-title">Services</span>
             <Link to="/" className="link link-hover capitalize">

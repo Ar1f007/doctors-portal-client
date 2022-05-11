@@ -8,5 +8,5 @@
   --rdp-background-color: var(--primary);
   --rdp-background-color-dark: var(--primary);
   --rdp-outline: 2px solid var(--primary);
-  --rdp-outline-selected: 2px solid var(--primary);
+  --rdp-outline-selected: 2px solid #3a4256;
 }

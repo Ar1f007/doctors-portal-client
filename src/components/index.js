@@ -11,3 +11,4 @@ export { Testimonial } from './Homepage/Testimonial';
 export { ContactUs } from './Homepage/ContactUs';
 
 export { AppointmentBanner } from './AppointmentPage/AppointmentBanner';
+export { AvailableAppointments } from './AppointmentPage/AvailableAppointments';

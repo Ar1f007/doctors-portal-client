@@ -1,16 +1,8 @@
 import chair from '../../assets/images/chair.png';
 import { DayPicker } from 'react-day-picker';
 
-import { useState } from 'react';
-import { format } from 'date-fns';
-
-export const AppointmentBanner = () => {
-  const [date, setDate] = useState();
-
-  let footer = <p className="text-neutral font-medium py-2">Please pick a day.</p>;
-  if (date) {
-    footer = <p className="text-neutral font-medium py-2">You picked {format(date, 'PP')}.</p>;
-  }
+export const AppointmentBanner = ({ date, setDate }) => {
+  let footer = <p className="mt-3">Please select a date.</p>;
   return (
     <div className="hero min-h-screen bg-base-100 lg:bg-[url('https://i.ibb.co/XWFkJ6H/bg.png')]">
       <div className="hero-content flex-col lg:flex-row-reverse">
