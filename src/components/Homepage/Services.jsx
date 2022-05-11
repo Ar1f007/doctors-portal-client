@@ -25,7 +25,7 @@ export const Services = () => {
     },
   ];
   return (
-    <section className="pb-14 lg:pt-12 px-8 lg:px-0 lg:pb-16">
+    <section className="mx-auto max-w-[1366px] pb-14 lg:pt-12 px-8 lg:px-0 lg:pb-16">
       <div className="text-center">
         <h3 className="uppercase text-xl font-bold text-primary">our services</h3>
         <h2 className="capitalize text-2xl lg:text-4xl font-normal text-neutral">

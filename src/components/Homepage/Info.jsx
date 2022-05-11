@@ -32,7 +32,7 @@ const information = [
 export const Info = () => {
   const id = useId();
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-20 px-3 lg:px-0">
+    <section className="mx-auto max-w-[1366px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-20 px-3 lg:px-0">
       {information.map((info, i) => (
         <InfoCard key={`${id}-${i}`} info={info} />
       ))}

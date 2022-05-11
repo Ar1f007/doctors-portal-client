@@ -3,7 +3,7 @@ import { Button } from '../Shared/Button';
 
 export const Treatment = () => {
   return (
-    <div className="hero bg-base-100 pb-20 lg:pb-28">
+    <div className="mx-auto max-w-[1366px] hero bg-base-100 pb-20 lg:pb-28 px-6 lg:px-0">
       <div className="hero-content flex-col lg:flex-row">
         <img
           src={treatment}
