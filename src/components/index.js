@@ -1,6 +1,7 @@
 export { Navbar } from './Shared/Navbar';
 export { NavLinks } from './Shared/NavLinks';
 export { Button } from './Shared/Button';
+export { Footer } from './Shared/Footer';
 
 export { Banner } from './Homepage/Banner';
 export { Info } from './Homepage/Info';
