@@ -5,8 +5,8 @@ export const TestimonialCard = ({ review: { name, text, city, image } }) => {
         <p>{text}</p>
 
         <div className="flex gap-x-5 items-center mt-5">
-          <div class="avatar">
-            <div class="w-16 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+          <div className="avatar">
+            <div className="w-16 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
               <img src={image} alt="avatar" />
             </div>
           </div>

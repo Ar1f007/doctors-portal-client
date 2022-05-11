@@ -38,7 +38,7 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login" className="btn">
+        <Link to="/login" className="btn text-base-100">
           Login
         </Link>
       </div>

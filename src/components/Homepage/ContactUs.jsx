@@ -10,10 +10,10 @@ export const ContactUs = () => {
         </div>
 
         <form className="mt-8 flex flex-col items-center gap-y-4 px-4 lg:px-0">
-          <input type="text" placeholder="Email Address" class="input w-full max-w-sm" />
-          <input type="text" placeholder="Subject" class="input w-full max-w-sm" />
+          <input type="text" placeholder="Email Address" className="input w-full max-w-sm" />
+          <input type="text" placeholder="Subject" className="input w-full max-w-sm" />
           <textarea
-            class="textarea  w-full max-w-sm min-h-[136px] max-h-[200px]"
+            className="textarea  w-full max-w-sm min-h-[136px] max-h-[200px]"
             placeholder="Your message"
           ></textarea>
           <Button text="submit" className="mx-auto" />
