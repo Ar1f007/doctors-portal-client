@@ -1,9 +1,10 @@
 import { ReactComponent as Google } from '../../assets/icons/google.svg';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../config/firebase.config';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 export const SocialLogin = () => {
+  // eslint-disable-next-line
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
   return (

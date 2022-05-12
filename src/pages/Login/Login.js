@@ -1,26 +1,38 @@
 import { Link } from 'react-router-dom';
-import { FormRow, SocialLogin } from '../../components';
+import { Error, SocialLogin } from '../../components';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../config/firebase.config';
+import { splitErrorMessage } from '../../helper/splitErrorMessage';
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
+    reset,
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+  const onSubmit = async (data) => {
+    await signInWithEmailAndPassword(data.email, data.password);
+  };
 
   return (
     <div className="flex min-h-[80vh] justify-center items-center">
       <div className="card w-full max-w-lg bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="text-center text-2xl font-semibold">Login</h2>
-
+          {error && <Error text={splitErrorMessage(error.message)} />}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control w-full max-w-lg">
               <label className="label">
@@ -96,7 +108,13 @@ export const Login = () => {
               <small>Forgot password?</small>
             </Link>
 
-            <button className="btn w-full text-base-100 tracking-widest font-normal">Login</button>
+            <button
+              className={`btn ${
+                loading && 'loading'
+              } w-full text-base-100 tracking-widest font-normal`}
+            >
+              {!loading && 'Login'}
+            </button>
           </form>
 
           <p className="text-center pt-2">
