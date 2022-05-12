@@ -4,7 +4,7 @@ import { Button } from '../Shared/Button';
 export const Banner = () => {
   return (
     <div
-      className="mx-auto max-w-[1366px] hero bg-base-100 pt-16 lg:pt-[250px] lg:pb-32 
+      className="mx-auto lg:h-[90vh] max-w-[1366px] hero bg-base-100 pt-10
     lg:bg-[url('https://i.ibb.co/XWFkJ6H/bg.png')]"
     >
       <div className="hero-content flex-col lg:flex-row-reverse lg:px-0">

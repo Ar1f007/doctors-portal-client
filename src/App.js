@@ -4,9 +4,9 @@ import { Appointment, About, Home, Login, SignUp } from './pages';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import auth from './config/firebase.config';
-
 import { useState } from 'react';
+
+import auth from './config/firebase.config';
 
 function App() {
   const [showAlert, setShowAlert] = useState(true);
@@ -18,6 +18,7 @@ function App() {
       {user && !user?.emailVerified && showAlert && (
         <ConfirmEmailAlert setShowAlert={setShowAlert} showAlert={showAlert} />
       )}
+
       <Navbar />
 
       <Routes>

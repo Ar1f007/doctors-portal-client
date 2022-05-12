@@ -2,8 +2,8 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 export const ConfirmEmailAlert = ({ setShowAlert }) => {
   return (
-    <div className="shadow-lg flex bg-base-200 py-4 w-full max-w-[1366px] mx-auto rounded-xl">
-      <div className="flex-1 flex justify-center items-center gap-3">
+    <div className="flex bg-base-200 w-full max-w-[1366px] mx-auto rounded-xl pl-3 lg:pl-0 shadow-lg py-4 ">
+      <div className="flex-1 flex justify-center lg:items-center gap-3">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
