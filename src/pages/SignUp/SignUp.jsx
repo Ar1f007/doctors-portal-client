@@ -1,17 +1,24 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Error, SocialLogin } from '../../components';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../config/firebase.config';
 import { splitErrorMessage } from '../../helper/splitErrorMessage';
+import { toast } from 'react-toastify';
 
-export const Login = () => {
+const toastId = 'toast';
+export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { state } = useLocation();
+
+  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(
+    auth,
+    { sendEmailVerification: true }
+  );
+  const [updateProfile, , updateError] = useUpdateProfile(auth);
+
   const navigate = useNavigate();
-  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
   const {
     register,
@@ -21,31 +28,64 @@ export const Login = () => {
   } = useForm();
 
   useEffect(() => {
+    if (user) {
+      navigate('/appointment');
+      toast.success('Account created successfully', { toastId });
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    if (updateError) {
+      toast.error('Could not update profile name, try reloading', {
+        toastId,
+      });
+    }
+  }, [updateError]);
+
+  useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
     }
   }, [isSubmitSuccessful, reset]);
 
-  useEffect(() => {
-    if (user) {
-      navigate(state?.path || '/');
-    }
-  }, [user, state, navigate]);
-
   const onSubmit = async (data) => {
-    await signInWithEmailAndPassword(data.email, data.password);
+    await createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
   };
 
   return (
     <div className="flex min-h-[80vh] justify-center items-center">
       <div className="card w-full max-w-lg bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="text-center text-2xl font-semibold uppercase">Login</h2>
+          <h2 className="text-center text-2xl font-semibold uppercase">Sign Up</h2>
           {error && <Error text={splitErrorMessage(error.message)} />}
 
-          {/* FORM */}
+          {/* FORM STARTS HERE */}
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* EMAIL */}
+            {/* NAME INPUT */}
+            <div className="form-control w-full max-w-lg">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                aria-label="enter your name"
+                className="input input-bordered w-full max-w-lg"
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Please provide your name',
+                  },
+                })}
+              />
+              <label className="label">
+                {errors.name?.type === 'required' && (
+                  <span className="label-text-alt text-error">{errors.name.message}</span>
+                )}
+              </label>
+            </div>
+
+            {/* EMAIL INPUT */}
             <div className="form-control w-full max-w-lg">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -75,7 +115,7 @@ export const Login = () => {
               </label>
             </div>
 
-            {/* PASSWORD */}
+            {/* PASSWORD INPUT */}
             <div className="form-control w-full max-w-lg">
               <label className="label">
                 <span className="label-text">Password</span>
@@ -118,25 +158,20 @@ export const Login = () => {
               </label>
             </div>
 
-            <Link to="/forgot-password" className="mb-4 block hover:link w-max">
-              <small>Forgot password?</small>
-            </Link>
-
-            {/* BUTTON */}
             <button
               className={`btn ${
                 loading && 'loading'
               } w-full text-base-100 tracking-widest font-normal`}
             >
-              {!loading && 'Login'}
+              {!loading && 'Sign up'}
             </button>
           </form>
-          {/* FORM */}
+          {/* FORM ENDS HERE */}
 
           <p className="text-center pt-2">
-            New to Doctors portal?{' '}
-            <Link to="/register" className="text-secondary link">
-              Create new account
+            Already have an account?{' '}
+            <Link to="/login" className="text-secondary link">
+              Login
             </Link>
           </p>
           <div className="divider">OR</div>

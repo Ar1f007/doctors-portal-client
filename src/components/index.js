@@ -1,3 +1,13 @@
+export { PrivateRoute } from './Auth/PrivateRoute';
+export { ConfirmEmailAlert } from './Auth/ConfirmEmailAlert';
+
+export { Banner } from './Homepage/Banner';
+export { Info } from './Homepage/Info';
+export { Services } from './Homepage/Services';
+export { Appointment } from './Homepage/Appointment';
+export { Testimonial } from './Homepage/Testimonial';
+export { ContactUs } from './Homepage/ContactUs';
+
 export { Navbar } from './Shared/Navbar';
 export { NavLinks } from './Shared/NavLinks';
 export { Button } from './Shared/Button';
@@ -6,13 +16,6 @@ export { SocialLogin } from './Shared/SocialLogin';
 export { FormRow } from './Shared/FormRow';
 export { Error } from './Shared/Error';
 export { Footer } from './Shared/Footer';
-
-export { Banner } from './Homepage/Banner';
-export { Info } from './Homepage/Info';
-export { Services } from './Homepage/Services';
-export { Appointment } from './Homepage/Appointment';
-export { Testimonial } from './Homepage/Testimonial';
-export { ContactUs } from './Homepage/ContactUs';
 
 export { AppointmentBanner } from './AppointmentPage/AppointmentBanner';
 export { AvailableAppointments } from './AppointmentPage/AvailableAppointments';

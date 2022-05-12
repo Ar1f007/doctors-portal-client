@@ -1,6 +1,17 @@
-import { Link } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { signOut } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
+import auth from '../../config/firebase.config';
 import { NavLinks } from './NavLinks';
 export const Navbar = () => {
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    await signOut(auth);
+    navigate('/');
+  };
+
   return (
     <div className="navbar bg-base-100 max-w-[1366px] mx-auto">
       <div className="navbar-start">
@@ -38,9 +49,17 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login" className="btn text-base-100">
-          Login
-        </Link>
+        {loading ? (
+          <button className="btn loading px-[1.5rem]"></button>
+        ) : user ? (
+          <button onClick={logout} className="btn text-base-100">
+            Logout
+          </button>
+        ) : (
+          <Link to="/login" className="btn text-base-100">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
