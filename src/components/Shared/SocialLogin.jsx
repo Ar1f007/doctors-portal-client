@@ -25,11 +25,9 @@ export const SocialLogin = () => {
 
   return (
     <button onClick={() => signInWithGoogle()} className="btn btn-outline hover:bg-neutral">
-      <div className="px-4 py-2">
-        <Google />
+      <div className="px-4 flex items-center gap-3">
+        <Google /> <p>{loading ? 'Logging in...' : 'Continue with Google'}</p>
       </div>
-
-      <span className="w-5/6 px-4 py-3">{loading ? 'Logging in...' : 'Continue with Google'}</span>
     </button>
   );
 };

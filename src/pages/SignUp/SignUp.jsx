@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Error, SocialLogin } from '../../components';
+import { ErrorMessage, SocialLogin } from '../../components';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { BiShow, BiHide } from 'react-icons/bi';
@@ -58,7 +58,7 @@ export const SignUp = () => {
       <div className="card w-full max-w-lg bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="text-center text-2xl font-semibold uppercase">Sign Up</h2>
-          {error && <Error text={splitErrorMessage(error.message)} />}
+          {error && <ErrorMessage text={splitErrorMessage(error.message)} />}
 
           {/* FORM STARTS HERE */}
           <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,4 +1,4 @@
-export const Error = ({ text }) => {
+export const ErrorMessage = ({ text }) => {
   return (
     <div className="flex w-full max-w-slg mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div className="flex items-center justify-center w-12 bg-red-500">

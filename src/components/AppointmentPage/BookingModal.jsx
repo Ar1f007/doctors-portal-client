@@ -1,7 +1,10 @@
 import { format } from 'date-fns';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../config/firebase.config';
 
 export const BookingModal = ({ treatment, setTreatment, date }) => {
   const { name, slots } = treatment;
+  const [user] = useAuthState(auth);
 
   const handleBooking = (e) => {
     e.preventDefault();
@@ -14,7 +17,7 @@ export const BookingModal = ({ treatment, setTreatment, date }) => {
     <>
       <input type="checkbox" id="bookingModal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box ">
+        <div className="modal-box text-neutral">
           <label
             htmlFor="bookingModal"
             className="btn btn-sm btn-circle absolute right-2 top-2 text-base-100"
@@ -32,7 +35,22 @@ export const BookingModal = ({ treatment, setTreatment, date }) => {
               value={format(date, 'PP')}
               disabled
             />
-            <select className="select w-full max-w-lg border-[#cfcfcf]" name="slot">
+
+            <input
+              type="text"
+              readOnly
+              name="name"
+              value={user?.displayName || ''}
+              className="input w-full max-w-lg border-[#cfcfcf]"
+            />
+            <input
+              type="email"
+              readOnly
+              value={user?.email || ''}
+              name="email"
+              className="input w-full max-w-lg border-[#cfcfcf]"
+            />
+            <select className="font-normal select w-full max-w-lg border-[#cfcfcf]" name="slot">
               {slots?.map((slot, i) => (
                 <option value={slot} key={i}>
                   {slot}
@@ -41,20 +59,8 @@ export const BookingModal = ({ treatment, setTreatment, date }) => {
             </select>
             <input
               type="text"
-              placeholder="Full Name"
-              name="name"
-              className="input w-full max-w-lg border-[#cfcfcf]"
-            />
-            <input
-              type="text"
               placeholder="Phone Number"
               name="phoneNumber"
-              className="input w-full max-w-lg border-[#cfcfcf]"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
               className="input w-full max-w-lg border-[#cfcfcf]"
             />
 

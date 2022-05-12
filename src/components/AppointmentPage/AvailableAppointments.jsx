@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 const customId = 'toast';
 export const AvailableAppointments = ({ date }) => {
   const { value: services, loading } = useFetchData('http://localhost:5000/services');
-
   const [treatment, setTreatment] = useState({});
 
   useEffect(() => {

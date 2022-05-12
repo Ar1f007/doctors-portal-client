@@ -14,7 +14,8 @@ export { Button } from './Shared/Button';
 export { Spinner } from './Shared/Spinner';
 export { SocialLogin } from './Shared/SocialLogin';
 export { FormRow } from './Shared/FormRow';
-export { Error } from './Shared/Error';
+export { ErrorMessage } from './Shared/ErrorMessage';
+export { SuccessMessage } from './Shared/SuccessMessage';
 export { Footer } from './Shared/Footer';
 
 export { AppointmentBanner } from './AppointmentPage/AppointmentBanner';
