@@ -6,6 +6,7 @@ import {
   ConfirmEmailAlert,
   MyReview,
   MyAppointments,
+  UserExists,
 } from './components';
 import {
   Appointment,
@@ -51,10 +52,10 @@ function App() {
 
         <Route path="/about" element={<About />} />
 
-        {/* <Route element={<UserExists />}> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SignUp />} />
-        {/* </Route> */}
+        <Route element={<UserExists />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<SignUp />} />
+        </Route>
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<PageNotFound />} />
