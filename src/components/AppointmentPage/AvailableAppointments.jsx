@@ -8,8 +8,17 @@ import { toast } from 'react-toastify';
 
 const customId = 'toast';
 export const AvailableAppointments = ({ date }) => {
-  const { value: services, loading } = useFetchData('http://localhost:5000/services');
+  const formattedDate = format(date, 'PP');
+
+  const [url, setUrl] = useState(
+    `http://localhost:5000/services/available-slots?date=${formattedDate}`
+  );
+  const { value: services, loading } = useFetchData(url);
   const [treatment, setTreatment] = useState({});
+
+  useEffect(() => {
+    setUrl(`http://localhost:5000/services/available-slots?date=${formattedDate}`);
+  }, [formattedDate]);
 
   useEffect(() => {
     if (!services) {
