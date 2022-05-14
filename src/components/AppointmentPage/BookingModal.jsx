@@ -1,16 +1,48 @@
+import axios from 'axios';
 import { format } from 'date-fns';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import auth from '../../config/firebase.config';
 
+const toastId = 'bookingToast';
 export const BookingModal = ({ treatment, setTreatment, date }) => {
-  const { name, slots } = treatment;
+  const { _id, name, slots } = treatment;
   const [user] = useAuthState(auth);
 
-  const handleBooking = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
-
+    const formattedDate = format(date, 'PP');
     const slot = e.target.slot.value;
-    console.log(slot);
+
+    const bookingData = {
+      treatmentId: _id,
+      treatment: name,
+      patientName: user?.displayName,
+      patientEmail: user?.email,
+      date: formattedDate,
+      slot,
+      phone: e.target.phoneNumber.value,
+    };
+
+    try {
+      const { data } = await axios.post('http://localhost:5000/bookings', bookingData);
+      if (data.success) {
+        toast.success(`Appointment is set, ${formattedDate} at ${slot}`, {
+          position: toast.POSITION.TOP_CENTER,
+          toastId,
+        });
+      }
+
+      toast.error(
+        `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          toastId,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
     setTreatment(null);
   };
   return (
