@@ -1,3 +1,9 @@
+import { Drawer } from '../../components';
+
 export const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <Drawer />
+    </>
+  );
 };

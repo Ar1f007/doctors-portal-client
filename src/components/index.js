@@ -2,6 +2,10 @@ export { PrivateRoute } from './Auth/PrivateRoute';
 export { ConfirmEmailAlert } from './Auth/ConfirmEmailAlert';
 export { UserExists } from './Auth/UserExists';
 
+export { Drawer } from './DashboardPage/Drawer';
+export { MyReview } from './DashboardPage/MyReview';
+export { MyAppointments } from './DashboardPage/MyAppointments';
+
 export { Banner } from './Homepage/Banner';
 export { Info } from './Homepage/Info';
 export { Services } from './Homepage/Services';
