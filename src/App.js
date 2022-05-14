@@ -7,7 +7,16 @@ import {
   MyReview,
   MyAppointments,
 } from './components';
-import { Appointment, About, Home, Login, SignUp, ForgotPassword, Dashboard } from './pages';
+import {
+  Appointment,
+  About,
+  Home,
+  Login,
+  SignUp,
+  ForgotPassword,
+  Dashboard,
+  PageNotFound,
+} from './pages';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -36,7 +45,7 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<MyAppointments />} />
-            <Route path="review" element={<MyReview />} />
+            <Route path="reviews" element={<MyReview />} />
           </Route>
         </Route>
 
@@ -48,7 +57,7 @@ function App() {
         {/* </Route> */}
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="*" element={<div>not found</div>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
 
       {location.pathname !== '/login' && location.pathname !== '/register' && <Footer />}

@@ -56,14 +56,26 @@ export const Drawer = () => {
               My Appointments
             </Link>
           </li>
+
           <li>
             <Link
-              to="/dashboard/review"
+              to="/dashboard/reviews"
               className={
-                matchRoute('/dashboard/review') ? 'bg-primary' : 'bg-transparent hover:bg-base-200'
+                matchRoute('/dashboard/reviews') ? 'bg-primary' : 'bg-transparent hover:bg-base-200'
               }
             >
-              Review
+              Reviews
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/dashboard/users"
+              className={
+                matchRoute('/dashboard/users') ? 'bg-primary' : 'bg-transparent hover:bg-base-200'
+              }
+            >
+              All Users
             </Link>
           </li>
         </ul>
