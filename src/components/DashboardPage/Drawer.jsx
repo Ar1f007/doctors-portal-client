@@ -44,7 +44,7 @@ export const Drawer = () => {
       </div>
       <div className="drawer-side">
         <label htmlFor="sidebar" className="drawer-overlay"></label>
-        <ul className="lg:bg-gray-50 menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+        <ul className="lg:bg-gray-50 menu p-4 overflow-y-auto w-max lg:w-[18.5rem] bg-base-100 text-base-content">
           {/* <!-- Sidebar content here --> */}
           <li>
             <Link

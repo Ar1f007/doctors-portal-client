@@ -43,14 +43,16 @@ export const SignUp = () => {
   }, [updateError]);
 
   useEffect(() => {
-    if (isSubmitSuccessful) {
+    if (isSubmitSuccessful && !error) {
       reset();
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, error]);
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
-    await updateProfile({ displayName: data.name });
+    if (user) {
+      await updateProfile({ displayName: data.name });
+    }
   };
 
   return (

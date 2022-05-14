@@ -46,7 +46,7 @@ export const AvailableAppointments = ({ date }) => {
   if (isLoading) {
     return (
       <div className="flex justify-center py-44">
-        <Spinner />;
+        <Spinner />
       </div>
     );
   }
