@@ -4,3 +4,4 @@ export { Login } from './Login/Login';
 export { SignUp } from './SignUp/SignUp';
 export { ForgotPassword } from './ForgotPassword/ForgotPassword';
 export { Appointment } from './Appointment/Appointment';
+export { Dashboard } from './Dashboard/Dashboard';

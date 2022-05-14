@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { Footer, Navbar, PrivateRoute, ConfirmEmailAlert, UserExists } from './components';
-import { Appointment, About, Home, Login, SignUp, ForgotPassword } from './pages';
+import { Appointment, About, Home, Login, SignUp, ForgotPassword, Dashboard } from './pages';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -26,6 +26,7 @@ function App() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/appointment" element={<Appointment />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
         <Route path="/about" element={<About />} />

@@ -4,8 +4,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import auth from '../../config/firebase.config';
 
-const toastId = 'bookingToast';
-export const BookingModal = ({ treatment, setTreatment, date }) => {
+const toastId = 'ERROR_TOAST';
+export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
   const { _id, name, slots } = treatment;
   const [user] = useAuthState(auth);
 
@@ -29,20 +29,20 @@ export const BookingModal = ({ treatment, setTreatment, date }) => {
       if (data.success) {
         toast.success(`Appointment is set, ${formattedDate} at ${slot}`, {
           position: toast.POSITION.TOP_CENTER,
-          toastId,
         });
+      } else {
+        toast.error(
+          `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
+          {
+            position: toast.POSITION.TOP_CENTER,
+            toastId,
+          }
+        );
       }
-
-      toast.error(
-        `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
-        {
-          position: toast.POSITION.TOP_CENTER,
-          toastId,
-        }
-      );
     } catch (error) {
       console.log(error);
     }
+    refetch();
     setTreatment(null);
   };
   return (
@@ -71,6 +71,7 @@ export const BookingModal = ({ treatment, setTreatment, date }) => {
             <input
               type="text"
               readOnly
+              disabled
               name="name"
               value={user?.displayName || ''}
               className="input w-full max-w-lg border-[#cfcfcf]"
@@ -78,6 +79,7 @@ export const BookingModal = ({ treatment, setTreatment, date }) => {
             <input
               type="email"
               readOnly
+              disabled
               value={user?.email || ''}
               name="email"
               className="input w-full max-w-lg border-[#cfcfcf]"

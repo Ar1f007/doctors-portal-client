@@ -1,39 +1,60 @@
 import { format } from 'date-fns/esm';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AppointmentCard } from './AppointmentCard';
 import { BookingModal } from './BookingModal';
-import { useFetchData } from '../../hooks/useFetchData';
+// import { useFetchData } from '../../hooks/useFetchData';
 import { Spinner } from '../Shared/Spinner';
 import { toast } from 'react-toastify';
-
-const customId = 'toast';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+// const customId = 'toast';
 export const AvailableAppointments = ({ date }) => {
   const formattedDate = format(date, 'PP');
 
-  const [url, setUrl] = useState(
-    `http://localhost:5000/services/available-slots?date=${formattedDate}`
-  );
-  const { value: services, loading } = useFetchData(url);
+  const fetchData = async () => {
+    const { data } = await axios.get(
+      `http://localhost:5000/services/available-slots?date=${formattedDate}`
+    );
+    return data;
+  };
+
+  const {
+    isLoading,
+    error,
+    data: services,
+    refetch,
+  } = useQuery(['available', formattedDate], fetchData);
   const [treatment, setTreatment] = useState({});
 
-  useEffect(() => {
-    setUrl(`http://localhost:5000/services/available-slots?date=${formattedDate}`);
-  }, [formattedDate]);
+  // const [url, setUrl] = useState(
+  //   `http://localhost:5000/services/available-slots?date=${formattedDate}`
+  // );
+  // const { value: services, loading } = useFetchData(url);
 
-  useEffect(() => {
-    if (!services) {
-      toast.error('Could not load services. Try reloading again', {
-        toastId: customId,
-      });
-    }
-  }, [services]);
+  // useEffect(() => {
+  //   setUrl(`http://localhost:5000/services/available-slots?date=${formattedDate}`);
+  // }, [formattedDate]);
 
-  if (loading) {
+  // useEffect(() => {
+  //   if (!services) {
+  //     toast.error('Could not load services. Try reloading again', {
+  //       toastId: customId,
+  //     });
+  //   }
+  // }, [services]);
+
+  if (isLoading) {
     return (
       <div className="flex justify-center py-44">
         <Spinner />;
       </div>
     );
+  }
+
+  if (error) {
+    toast.error('An error has occurred: ' + error.message, {
+      position: toast.POSITION.TOP_CENTER,
+    });
   }
 
   return (
@@ -53,7 +74,14 @@ export const AvailableAppointments = ({ date }) => {
         </section>
       )}
 
-      {treatment && <BookingModal treatment={treatment} setTreatment={setTreatment} date={date} />}
+      {treatment && (
+        <BookingModal
+          refetch={refetch}
+          treatment={treatment}
+          setTreatment={setTreatment}
+          date={date}
+        />
+      )}
     </section>
   );
 };
