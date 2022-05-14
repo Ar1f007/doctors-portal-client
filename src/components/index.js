@@ -1,5 +1,6 @@
 export { PrivateRoute } from './Auth/PrivateRoute';
 export { ConfirmEmailAlert } from './Auth/ConfirmEmailAlert';
+export { UserExists } from './Auth/UserExists';
 
 export { Banner } from './Homepage/Banner';
 export { Info } from './Homepage/Info';

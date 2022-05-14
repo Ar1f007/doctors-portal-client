@@ -1,5 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { Footer, Navbar, PrivateRoute, ConfirmEmailAlert } from './components';
+import { Footer, Navbar, PrivateRoute, ConfirmEmailAlert, UserExists } from './components';
 import { Appointment, About, Home, Login, SignUp, ForgotPassword } from './pages';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,12 +23,18 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route element={<PrivateRoute />}>
           <Route path="/appointment" element={<Appointment />} />
-          <Route path="/about" element={<About />} />
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SignUp />} />
+
+        <Route path="/about" element={<About />} />
+
+        <Route element={<UserExists />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
+        </Route>
+
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<div>not found</div>} />
       </Routes>
