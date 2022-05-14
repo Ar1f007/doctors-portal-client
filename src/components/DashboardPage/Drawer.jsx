@@ -15,7 +15,7 @@ export const Drawer = () => {
       <div className="drawer-content py-[.92rem] border-t-[1px] lg:border-t-0">
         <div className="navbar lg:bg-transparent">
           <div className="navbar-start w-max">
-            <label htmlFor="sidebar" tabIndex="1" className="btn btn-ghost lg:hidden">
+            <label htmlFor="sidebar" tabIndex="0" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"

@@ -5,7 +5,6 @@ import { Spinner } from '../Shared/Spinner';
 
 export const UserExists = () => {
   const [user, loading] = useAuthState(auth);
-
   if (loading)
     return (
       <div className="h-screen flex justify-center items-center">

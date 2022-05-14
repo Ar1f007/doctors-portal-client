@@ -10,6 +10,7 @@ export const Navbar = () => {
 
   const logout = async () => {
     await signOut(auth);
+    localStorage.removeItem('dp_token');
     navigate('/');
   };
 

@@ -4,13 +4,15 @@ import auth from '../../config/firebase.config';
 import { Navigate, useLocation } from 'react-router-dom';
 import { splitErrorMessage } from '../../helper/splitErrorMessage';
 import { toast } from 'react-toastify';
+import { useToken } from '../../hooks/useToken';
 
 const customId = 'toast';
 export const SocialLogin = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [token] = useToken(user);
   const { state } = useLocation();
 
-  if (user) {
+  if (token) {
     return <Navigate to={state?.path || '/'} replace />;
   }
 

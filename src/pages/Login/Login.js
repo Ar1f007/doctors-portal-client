@@ -6,12 +6,14 @@ import { BiShow, BiHide } from 'react-icons/bi';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../config/firebase.config';
 import { splitErrorMessage } from '../../helper/splitErrorMessage';
+import { useToken } from '../../hooks/useToken';
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { state } = useLocation();
   const navigate = useNavigate();
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [token] = useToken(user);
 
   const {
     register,
@@ -27,10 +29,10 @@ export const Login = () => {
   }, [isSubmitSuccessful, reset]);
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       navigate(state?.path || '/');
     }
-  }, [user, state, navigate]);
+  }, [token, state, navigate]);
 
   const onSubmit = async (data) => {
     await signInWithEmailAndPassword(data.email, data.password);

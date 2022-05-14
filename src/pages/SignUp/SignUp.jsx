@@ -7,17 +7,17 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import auth from '../../config/firebase.config';
 import { splitErrorMessage } from '../../helper/splitErrorMessage';
 import { toast } from 'react-toastify';
+import { useToken } from '../../hooks/useToken';
 
 const toastId = 'toast';
 export const SignUp = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
   const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(
     auth,
     { sendEmailVerification: true }
   );
+  const [showPassword, setShowPassword] = useState(false);
   const [updateProfile, , updateError] = useUpdateProfile(auth);
-
+  const [token] = useToken(user);
   const navigate = useNavigate();
 
   const {
@@ -28,11 +28,11 @@ export const SignUp = () => {
   } = useForm();
 
   useEffect(() => {
-    if (user) {
+    if (user && token) {
       navigate('/appointment');
       toast.success('Account created successfully', { toastId });
     }
-  }, [user, navigate]);
+  }, [user, token, navigate]);
 
   useEffect(() => {
     if (updateError) {
