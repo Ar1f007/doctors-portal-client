@@ -1,12 +1,10 @@
-import axios from 'axios';
-import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../config/firebase.config';
+import authFetch from '../../helper/axiosInstance';
 
-const toastId = 'id-1';
 export const MyAppointments = () => {
   const [user] = useAuthState(auth);
   const [appointments, setAppointments] = useState([]);
@@ -16,23 +14,10 @@ export const MyAppointments = () => {
     const fetchData = async () => {
       if (user) {
         try {
-          const res = await axios(`http://localhost:5000/bookings?patientEmail=${user?.email}`, {
-            headers: { authorization: 'Bearer ' + localStorage.getItem('dp_token') },
-          });
-
+          const res = await authFetch(`/bookings?patientEmail=${user?.email}`);
           setAppointments(res.data);
         } catch (error) {
-          await signOut(auth);
-          localStorage.removeItem('dp_token');
-
-          if (error.response.status === 403) {
-            toast.info(error.response.data.message + '. Please login again.', { toastId });
-          }
-          if (error.response.status === 401) {
-            toast.info(error.response.data.message, { toastId });
-          }
-
-          navigate('/login');
+          toast.info('Something went wrong. Try again later.');
         }
       }
     };

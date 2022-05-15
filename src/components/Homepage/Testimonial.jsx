@@ -37,7 +37,7 @@ export const Testimonial = () => {
           <p className="text-neutral text-2xl lg:text-4xl capitalize">What our patients says</p>
         </div>
         <figure>
-          <img src={quote} alt="quote icon" className="w-24 lg:w-48" />
+          <img loading="lazy" src={quote} alt="quote icon" className="w-24 lg:w-48" />
         </figure>
       </div>
 

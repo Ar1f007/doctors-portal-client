@@ -2,19 +2,26 @@ import { format } from 'date-fns/esm';
 import { useState } from 'react';
 import { AppointmentCard } from './AppointmentCard';
 import { BookingModal } from './BookingModal';
-// import { useFetchData } from '../../hooks/useFetchData';
 import { Spinner } from '../Shared/Spinner';
 import { toast } from 'react-toastify';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+
+import authFetch from '../../helper/axiosInstance';
+// import { useFetchData } from '../../hooks/useFetchData';
 // const customId = 'toast';
+
 export const AvailableAppointments = ({ date }) => {
   const formattedDate = format(date, 'PP');
 
+  // const fetchData = async () => {
+  //   const { data } = await axios.get(
+  //     `http://localhost:5000/services/available-slots?date=${formattedDate}`
+  //   );
+  //   return data;
+  // };
+
   const fetchData = async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/services/available-slots?date=${formattedDate}`
-    );
+    const { data } = await authFetch.get(`/services/available-slots?date=${formattedDate}`);
     return data;
   };
 

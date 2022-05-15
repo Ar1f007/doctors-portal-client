@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { Spinner } from '../../components';
 import auth from '../../config/firebase.config';
+import authFetch from '../../helper/axiosInstance';
 
 const toastId = 'id1';
 const token = localStorage.getItem('dp_token');
@@ -35,13 +36,7 @@ export const AllUser = () => {
     const { email } = user;
 
     try {
-      const { data } = await axios.put(
-        `http://localhost:5000/users/make-admin/${email}`,
-        {},
-        {
-          headers: { authorization: `Bearer ${token}` },
-        }
-      );
+      const { data } = await authFetch.put(`/users/make-admin/${email}`, {});
 
       if (data.modifiedCount > 0) {
         refetch();

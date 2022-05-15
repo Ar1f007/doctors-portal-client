@@ -13,6 +13,7 @@ export const Treatment = () => {
     <div className="mx-auto max-w-[1366px] hero bg-base-100 pb-20 lg:pb-28 px-6 lg:px-0">
       <div className="hero-content flex-col lg:flex-row">
         <img
+          loading="lazy"
           src={treatment}
           className="w-[90%] max-w-md rounded-lg shadow-2xl mb-4 lg:mb-0"
           alt="A boy is getting treatment"

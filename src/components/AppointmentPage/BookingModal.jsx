@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { format } from 'date-fns';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import auth from '../../config/firebase.config';
+import authFetch from '../../helper/axiosInstance';
 
 const toastId = 'ERROR_TOAST';
 export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
@@ -24,23 +24,19 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
       phone: e.target.phoneNumber.value,
     };
 
-    try {
-      const { data } = await axios.post('http://localhost:5000/bookings', bookingData);
-      if (data.success) {
-        toast.success(`Appointment is set, ${formattedDate} at ${slot}`, {
+    const { data } = await authFetch.post('/bookings', bookingData);
+    if (data.success) {
+      toast.success(`Appointment is set, ${formattedDate} at ${slot}`, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      toast.error(
+        `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
+        {
           position: toast.POSITION.TOP_CENTER,
-        });
-      } else {
-        toast.error(
-          `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
-          {
-            position: toast.POSITION.TOP_CENTER,
-            toastId,
-          }
-        );
-      }
-    } catch (error) {
-      console.log(error);
+          toastId,
+        }
+      );
     }
     refetch();
     setTreatment(null);

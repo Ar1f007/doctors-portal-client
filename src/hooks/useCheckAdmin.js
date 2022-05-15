@@ -1,14 +1,12 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import authFetch from '../helper/axiosInstance';
 
 export const useCheckAdmin = (user) => {
   const [admin, setAdmin] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(true);
 
   const isAdmin = async (email) => {
-    const { data } = await axios(`http://localhost:5000/admin/${email}`, {
-      headers: { authorization: `Bearer ${localStorage.getItem('dp_token')}` },
-    });
+    const { data } = await authFetch(`/admin/${email}`);
 
     setAdmin(data.admin);
     setCheckingStatus(false);
