@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import auth from '../../config/firebase.config';
 import authFetch from '../../helper/axiosInstance';
@@ -9,10 +10,15 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
   const { _id, name, slots } = treatment;
   const [user] = useAuthState(auth);
 
-  const handleBooking = async (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (values) => {
     const formattedDate = format(date, 'PP');
-    const slot = e.target.slot.value;
+    const slot = values.slot;
 
     const bookingData = {
       treatmentId: _id,
@@ -21,7 +27,7 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
       patientEmail: user?.email,
       date: formattedDate,
       slot,
-      phone: e.target.phoneNumber.value,
+      phone: values.phoneNumber,
     };
 
     const { data } = await authFetch.post('/bookings', bookingData);
@@ -41,6 +47,39 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
     refetch();
     setTreatment(null);
   };
+
+  // const handleBooking = async (e) => {
+  //   e.preventDefault();
+  //   const formattedDate = format(date, 'PP');
+  //   const slot = e.target.slot.value;
+
+  //   const bookingData = {
+  //     treatmentId: _id,
+  //     treatment: name,
+  //     patientName: user?.displayName,
+  //     patientEmail: user?.email,
+  //     date: formattedDate,
+  //     slot,
+  //     phone: e.target.phoneNumber.value,
+  //   };
+
+  //   const { data } = await authFetch.post('/bookings', bookingData);
+  //   if (data.success) {
+  //     toast.success(`Appointment is set, ${formattedDate} at ${slot}`, {
+  //       position: toast.POSITION.TOP_CENTER,
+  //     });
+  //   } else {
+  //     toast.error(
+  //       `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
+  //       {
+  //         position: toast.POSITION.TOP_CENTER,
+  //         toastId,
+  //       }
+  //     );
+  //   }
+  //   refetch();
+  //   setTreatment(null);
+  // };
   return (
     <>
       <input type="checkbox" id="bookingModal" className="modal-toggle" />
@@ -54,7 +93,7 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
           </label>
           <h3 className="text-lg font-semibold text-neutral tracking-wide">{name}</h3>
           <form
-            onSubmit={handleBooking}
+            onSubmit={handleSubmit(onSubmit)}
             className="py-4 grid grid-cols-1 justify-items-center gap-3"
           >
             <input
@@ -80,19 +119,30 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
               name="email"
               className="input w-full max-w-lg border-[#cfcfcf]"
             />
-            <select className="font-normal select w-full max-w-lg border-[#cfcfcf]" name="slot">
+            <select
+              className="font-normal select w-full max-w-lg border-[#cfcfcf]"
+              {...register('slot', {
+                required: 'Please select one time slot',
+              })}
+            >
+              <option value="">Pick a time slot</option>
               {slots?.map((slot, i) => (
                 <option value={slot} key={i}>
                   {slot}
                 </option>
               ))}
             </select>
+            {errors.slot && <p className="text-error w-full">{errors.slot.message}</p>}
             <input
+              {...register('phoneNumber', { required: 'Phone number is required' })}
               type="text"
               placeholder="Phone Number"
-              name="phoneNumber"
               className="input w-full max-w-lg border-[#cfcfcf]"
             />
+
+            {errors.phoneNumber && (
+              <p className="text-error w-full">{errors.phoneNumber.message}</p>
+            )}
 
             <input
               type="submit"
