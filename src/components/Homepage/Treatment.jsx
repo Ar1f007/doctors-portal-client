@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import treatment from '../../assets/images/treatment.png';
 import { Button } from '../Shared/Button';
 
 export const Treatment = () => {
+  const navigate = useNavigate();
+
+  const navigateToAppointment = () => {
+    navigate('/appointment');
+  };
+
   return (
     <div className="mx-auto max-w-[1366px] hero bg-base-100 pb-20 lg:pb-28 px-6 lg:px-0">
       <div className="hero-content flex-col lg:flex-row">
@@ -21,7 +28,7 @@ export const Treatment = () => {
             here', making it look like readable English. Many desktop publishing packages and web
             page
           </p>
-          <Button text="get started" link="/" />
+          <Button text="get started" navigateToAppointment={navigateToAppointment} />
         </div>
       </div>
     </div>

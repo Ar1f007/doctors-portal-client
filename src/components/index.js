@@ -1,6 +1,7 @@
 export { PrivateRoute } from './Auth/PrivateRoute';
 export { ConfirmEmailAlert } from './Auth/ConfirmEmailAlert';
 export { UserExists } from './Auth/UserExists';
+export { RequireAdmin } from './Auth/RequireAdmin';
 
 export { Drawer } from './DashboardPage/Drawer';
 export { MyReview } from './DashboardPage/MyReview';

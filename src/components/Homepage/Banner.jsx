@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import chair from '../../assets/images/chair.png';
 import { Button } from '../Shared/Button';
 
 export const Banner = () => {
+  const navigate = useNavigate();
+
+  const navigateToAppointment = () => {
+    navigate('/appointment');
+  };
+
   return (
     <div
       className="mx-auto lg:h-[90vh] max-w-[1366px] hero bg-base-100 pt-10
@@ -17,7 +24,7 @@ export const Banner = () => {
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
             exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.
           </p>
-          <Button text="get started" link="/" />
+          <Button text="get started" navigateToAppointment={navigateToAppointment} />
         </div>
       </div>
     </div>

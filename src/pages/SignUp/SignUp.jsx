@@ -50,9 +50,7 @@ export const SignUp = () => {
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
-    if (user) {
-      await updateProfile({ displayName: data.name });
-    }
+    await updateProfile({ displayName: data.name });
   };
 
   return (

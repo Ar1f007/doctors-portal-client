@@ -1,7 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import doctor from '../../assets/images/doctor.png';
 import { Button } from '../Shared/Button';
 
 export const Appointment = () => {
+  const navigate = useNavigate();
+
+  const navigateToAppointment = () => {
+    navigate('/appointment');
+  };
   return (
     <section className="lg:pt-20 pb-12">
       <section className="flex justify-center items-center py-12 px-9 lg:py-0 lg:px-0 bg-[url('https://i.ibb.co/hXvVCKX/appointment.png')]">
@@ -18,7 +24,7 @@ export const Appointment = () => {
             here', making it look like readable English. Many desktop publishing packages and web
             page
           </p>
-          <Button text="get started" link="/" />
+          <Button text="get started" navigateToAppointment={navigateToAppointment} />
         </div>
       </section>
     </section>

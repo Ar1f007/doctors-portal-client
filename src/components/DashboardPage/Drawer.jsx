@@ -1,6 +1,12 @@
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import auth from '../../config/firebase.config';
+import { useCheckAdmin } from '../../hooks/useCheckAdmin';
+import { Spinner } from '../Shared/Spinner';
 
 export const Drawer = () => {
+  const [user, loading] = useAuthState(auth);
+  const [admin] = useCheckAdmin(user);
   const location = useLocation();
 
   const matchRoute = (route) => {
@@ -8,6 +14,14 @@ export const Drawer = () => {
       return true;
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center py-44">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="drawer drawer-mobile mt-3 lg:border border-base-200 ">
@@ -38,9 +52,8 @@ export const Drawer = () => {
             </h1>
           </div>
         </div>
-        <Outlet />
-
         {/* <!-- Page content here --> */}
+        <Outlet />
       </div>
       <div className="drawer-side">
         <label htmlFor="sidebar" className="drawer-overlay"></label>
@@ -68,16 +81,18 @@ export const Drawer = () => {
             </Link>
           </li>
 
-          <li>
-            <Link
-              to="/dashboard/users"
-              className={
-                matchRoute('/dashboard/users') ? 'bg-primary' : 'bg-transparent hover:bg-base-200'
-              }
-            >
-              All Users
-            </Link>
-          </li>
+          {admin && (
+            <li>
+              <Link
+                to="/dashboard/users"
+                className={
+                  matchRoute('/dashboard/users') ? 'bg-primary' : 'bg-transparent hover:bg-base-200'
+                }
+              >
+                All Users
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>
