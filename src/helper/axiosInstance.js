@@ -4,9 +4,11 @@ import { toast } from 'react-toastify';
 import auth from '../config/firebase.config';
 
 const toastId = 'toast';
+const url = 'http://localhost:5000';
+// const herokuUrl = 'https://doctors-portalway.herokuapp.com';
 // axios setup
 const authFetch = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: url,
 });
 
 // request

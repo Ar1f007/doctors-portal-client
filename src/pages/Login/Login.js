@@ -54,6 +54,8 @@ export const Login = () => {
               </label>
               <input
                 type="email"
+                name="email"
+                autoComplete="username"
                 aria-label="enter your email"
                 className="input input-bordered w-full max-w-lg"
                 {...register('email', {
@@ -85,6 +87,8 @@ export const Login = () => {
               <div className="relative flex items-center">
                 <input
                   type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  name="password"
                   aria-label="enter your password"
                   className="input input-bordered w-full max-w-lg"
                   {...register('password', {

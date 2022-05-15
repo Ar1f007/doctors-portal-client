@@ -11,28 +11,28 @@ import { useToken } from '../../hooks/useToken';
 
 const toastId = 'toast';
 export const SignUp = () => {
+  const {
+    register,
+    formState: { errors, isSubmitSuccessful },
+    reset,
+    getValues,
+    handleSubmit,
+  } = useForm();
   const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(
     auth,
     { sendEmailVerification: true }
   );
   const [showPassword, setShowPassword] = useState(false);
   const [updateProfile, , updateError] = useUpdateProfile(auth);
-  const [token] = useToken(user);
+  const [token] = useToken(user, getValues('name'));
   const navigate = useNavigate();
 
-  const {
-    register,
-    formState: { errors, isSubmitSuccessful },
-    reset,
-    handleSubmit,
-  } = useForm();
-
   useEffect(() => {
-    if (user && token) {
+    if (token) {
       navigate('/appointment');
       toast.success('Account created successfully', { toastId });
     }
-  }, [user, token, navigate]);
+  }, [token, navigate]);
 
   useEffect(() => {
     if (updateError) {
@@ -69,6 +69,8 @@ export const SignUp = () => {
               </label>
               <input
                 type="text"
+                name="name"
+                autoComplete="username"
                 aria-label="enter your name"
                 className="input input-bordered w-full max-w-lg"
                 {...register('name', {
@@ -92,6 +94,8 @@ export const SignUp = () => {
               </label>
               <input
                 type="email"
+                name="email"
+                autoComplete="username"
                 aria-label="enter your email"
                 className="input input-bordered w-full max-w-lg"
                 {...register('email', {
@@ -123,6 +127,7 @@ export const SignUp = () => {
               <div className="relative flex items-center">
                 <input
                   type={showPassword ? 'text' : 'password'}
+                  autoComplete="new-password"
                   aria-label="enter your password"
                   className="input input-bordered w-full max-w-lg"
                   {...register('password', {

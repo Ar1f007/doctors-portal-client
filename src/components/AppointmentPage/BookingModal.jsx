@@ -4,8 +4,12 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import auth from '../../config/firebase.config';
 import authFetch from '../../helper/axiosInstance';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
+const MySwal = withReactContent(Swal);
 const toastId = 'ERROR_TOAST';
+
 export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
   const { _id, name, slots } = treatment;
   const [user] = useAuthState(auth);
@@ -31,55 +35,28 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
     };
 
     const { data } = await authFetch.post('/bookings', bookingData);
+
     if (data.success) {
-      toast.success(`Appointment is set, ${formattedDate} at ${slot}`, {
-        position: toast.POSITION.TOP_CENTER,
+      MySwal.fire({
+        title: <strong className="text-neutral font-medium">Appointment Booked!</strong>,
+        html: (
+          <span className="text-neutral">
+            on {formattedDate} at {slot}
+          </span>
+        ),
+        icon: 'success',
+        confirmButtonColor: '#19D3AE',
       });
     } else {
-      toast.error(
-        `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
-        {
-          position: toast.POSITION.TOP_CENTER,
-          toastId,
-        }
-      );
+      toast.error(data?.message, {
+        position: toast.POSITION.TOP_CENTER,
+        toastId,
+      });
     }
     refetch();
     setTreatment(null);
   };
 
-  // const handleBooking = async (e) => {
-  //   e.preventDefault();
-  //   const formattedDate = format(date, 'PP');
-  //   const slot = e.target.slot.value;
-
-  //   const bookingData = {
-  //     treatmentId: _id,
-  //     treatment: name,
-  //     patientName: user?.displayName,
-  //     patientEmail: user?.email,
-  //     date: formattedDate,
-  //     slot,
-  //     phone: e.target.phoneNumber.value,
-  //   };
-
-  //   const { data } = await authFetch.post('/bookings', bookingData);
-  //   if (data.success) {
-  //     toast.success(`Appointment is set, ${formattedDate} at ${slot}`, {
-  //       position: toast.POSITION.TOP_CENTER,
-  //     });
-  //   } else {
-  //     toast.error(
-  //       `You have already booked an appointment for it on ${data.booking?.date} at ${data.booking?.slot}`,
-  //       {
-  //         position: toast.POSITION.TOP_CENTER,
-  //         toastId,
-  //       }
-  //     );
-  //   }
-  //   refetch();
-  //   setTreatment(null);
-  // };
   return (
     <>
       <input type="checkbox" id="bookingModal" className="modal-toggle" />
