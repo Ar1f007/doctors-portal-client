@@ -33,7 +33,6 @@ export const AllUser = () => {
   }
 
   const popupModal = async (user) => {
-    console.log(user);
     const res = await MySwal.fire({
       title: <p className="text-gray-600">Are you sure?</p>,
       html: (

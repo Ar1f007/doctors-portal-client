@@ -1,7 +1,5 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-const url = 'http://localhost:5000';
-// const herokuUrl = 'https://doctors-portalway.herokuapp.com';
+import authFetch from '../helper/axiosInstance';
 
 export const useToken = (user, name) => {
   const [token, setToken] = useState('');
@@ -12,7 +10,7 @@ export const useToken = (user, name) => {
       const username = user?.user?.displayName || name;
 
       if (email) {
-        const { data } = await axios.put(`${url}/users/${email}`, {
+        const { data } = await authFetch.put(`/users/${email}`, {
           email,
           name: username,
         });

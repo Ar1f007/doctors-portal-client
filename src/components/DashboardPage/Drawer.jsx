@@ -82,16 +82,32 @@ export const Drawer = () => {
           </li>
 
           {admin && (
-            <li>
-              <Link
-                to="/dashboard/users"
-                className={
-                  matchRoute('/dashboard/users') ? 'bg-primary' : 'bg-transparent hover:bg-base-200'
-                }
-              >
-                All Users
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link
+                  to="/dashboard/users"
+                  className={
+                    matchRoute('/dashboard/users')
+                      ? 'bg-primary'
+                      : 'bg-transparent hover:bg-base-200'
+                  }
+                >
+                  All Users
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/add-doctor"
+                  className={
+                    matchRoute('/dashboard/add-doctor')
+                      ? 'bg-primary'
+                      : 'bg-transparent hover:bg-base-200'
+                  }
+                >
+                  Add Doctor
+                </Link>
+              </li>
+            </>
           )}
         </ul>
       </div>
