@@ -5,6 +5,7 @@ import authFetch from '../../helper/axiosInstance';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { Spinner } from '../../components';
+import { toast } from 'react-toastify';
 
 const MySwal = withReactContent(Swal);
 const toastId = 'id1';
@@ -18,14 +19,14 @@ const fetchData = async () => {
 // component
 export const ManageDoctors = () => {
   const [currentUser] = useAuthState(auth);
-  const { data: doctors, isLoading } = useQuery('doctors', fetchData);
+  const { data: doctors, isLoading, refetch } = useQuery('doctors', fetchData);
 
-  const popupModal = async (user) => {
+  const popupModal = async (doctor) => {
     const res = await MySwal.fire({
       title: <p className="text-gray-600">Are you sure?</p>,
       html: (
         <p>
-          You want to delete <strong>{user?.name}</strong>?
+          You want to delete <strong>{doctor?.name}</strong>?
         </p>
       ),
       icon: 'question',
@@ -36,7 +37,18 @@ export const ManageDoctors = () => {
     });
 
     if (res.isConfirmed) {
-      console.log('yes');
+      try {
+        const { data } = await authFetch.delete(`/doctor/${doctor._id}`);
+        if (data.deletedCount > 0) {
+          toast.success('Deleted Successfully', {
+            toastId,
+          });
+
+          refetch();
+        }
+      } catch (error) {
+        toast.error(error.data.message);
+      }
     }
   };
 
