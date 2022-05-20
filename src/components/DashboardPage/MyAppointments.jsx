@@ -60,7 +60,7 @@ export const MyAppointments = () => {
                       Pay
                     </button>
                   )}
-                  {price && paid && <button className="btn btn-primary">Paid</button>}
+                  {price && paid && <button className="btn btn-success">Paid</button>}
                 </td>
               </tr>
             ))}

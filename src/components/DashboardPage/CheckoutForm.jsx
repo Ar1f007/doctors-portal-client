@@ -9,8 +9,9 @@ export const CheckoutForm = ({ appointment }) => {
   const [cardSuccess, setCardSuccess] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [transactionId, setTransactionId] = useState('');
+  const [processing, setProcessing] = useState(false);
 
-  const { patientName, patientEmail, price } = appointment;
+  const { _id, patientName, patientEmail, price } = appointment;
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -42,6 +43,8 @@ export const CheckoutForm = ({ appointment }) => {
       setCardError('');
     }
 
+    setProcessing(true);
+
     const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -55,10 +58,19 @@ export const CheckoutForm = ({ appointment }) => {
     if (intentError) {
       setCardError(intentError.message);
       setCardSuccess('');
+      setProcessing(false);
     } else {
       setCardError('');
       setCardSuccess('You payment is completed!');
       setTransactionId(paymentIntent.id);
+      setProcessing(false);
+
+      const payment = {
+        appointment: _id,
+        transactionId: paymentIntent.id,
+      };
+      const { data } = await authFetch.patch(`/update-booking/${_id}`, payment);
+      console.log(data);
     }
   };
 
@@ -75,7 +87,7 @@ export const CheckoutForm = ({ appointment }) => {
             className="mt-3 btn btn-secondary btn-sm w-full text-base-100 tracking-widest font-medium"
             disabled={!stripe || !elements || !clientSecret}
           >
-            Proceed
+            {processing ? 'Processing...' : 'Proceed'}
           </button>
         </div>
       </form>
@@ -83,7 +95,7 @@ export const CheckoutForm = ({ appointment }) => {
       {cardSuccess && <p className="mt-3 text-success font-medium">{cardSuccess}</p>}
       {transactionId && (
         <p className="mt-3 font-medium">
-          Your transaction id is: <span className="text-orange-700">{transactionId}</span> .
+          Your transaction id is: <span className="text-orange-700">{transactionId}</span>
         </p>
       )}
     </>
