@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
 import { Spinner } from '../../components';
@@ -21,8 +23,43 @@ export const AddDoctor = () => {
 
   const { data, isLoading } = useQuery('services', getServiceNames);
 
-  const onSubmit = async (formData) => {
-    console.log(formData);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
+  const onSubmit = async (values) => {
+    const formData = new FormData();
+    formData.append('file', values.image[0]);
+    formData.append('upload_preset', 'xg2wgbbh');
+
+    const postImage = async () => {
+      try {
+        const response = await axios.post(
+          'https://api.cloudinary.com/v1_1/dv3wezqsc/image/upload',
+          formData
+        );
+
+        if (response.data.secure_url) {
+          const img = response.data.secure_url;
+
+          const doctorInfo = {
+            name: values.name,
+            email: values.email,
+            specialty: values.specialty,
+            phone: values.phone,
+            img,
+          };
+
+          console.log(doctorInfo);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    postImage();
   };
 
   if (isLoading) {
@@ -177,6 +214,7 @@ export const AddDoctor = () => {
                   value: true,
                   message: 'Please put an image',
                 },
+                validate: (value) => value[0].size <= 2000000,
               })}
               aria-label="pick an image of doctor"
               className="block w-full max-w-lg text-sm text-neutral file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-normal file:text-gray-700 hover:file:bg-neutral hover:file:text-base-100 hover:file:pointer focus:border-gray-300 cursor-pointer"
@@ -184,6 +222,11 @@ export const AddDoctor = () => {
             <label className="label">
               {errors.image?.type === 'required' && (
                 <span className="label-text-alt text-error">{errors.image.message}</span>
+              )}
+              {errors.image?.type === 'validate' && (
+                <span className="label-text-alt text-error">
+                  Image should not be larger than 2mb in size
+                </span>
               )}
             </label>
           </div>
