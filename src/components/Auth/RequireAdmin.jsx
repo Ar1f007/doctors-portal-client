@@ -1,11 +1,11 @@
 import { signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import auth from '../../config/firebase.config';
 import { useCheckAdmin } from '../../hooks/useCheckAdmin';
 import { Spinner } from '../Shared/Spinner';
 
-export const RequireAdmin = ({ children }) => {
+export const RequireAdmin = () => {
   const [user, loading] = useAuthState(auth);
   const [admin, checkingStatus] = useCheckAdmin(user);
 
@@ -22,5 +22,5 @@ export const RequireAdmin = ({ children }) => {
     localStorage.removeItem('dp_token');
     return <Navigate to="/login" replace />;
   }
-  return children;
+  return <Outlet />;
 };

@@ -8,3 +8,4 @@ export { PageNotFound } from './404/PageNotFound';
 export { Dashboard } from './Dashboard/Dashboard';
 export { AllUser } from './Dashboard/AllUser';
 export { AddDoctor } from './Dashboard/AddDoctor';
+export { ManageDoctors } from './Dashboard/ManageDoctors';

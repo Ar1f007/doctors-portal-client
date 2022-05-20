@@ -20,6 +20,7 @@ import {
   PageNotFound,
   AllUser,
   AddDoctor,
+  ManageDoctors,
 } from './pages';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -50,23 +51,11 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<MyAppointments />} />
 
-            <Route
-              path="users"
-              element={
-                <RequireAdmin>
-                  <AllUser />
-                </RequireAdmin>
-              }
-            />
-
-            <Route
-              path="add-doctor"
-              element={
-                <RequireAdmin>
-                  <AddDoctor />
-                </RequireAdmin>
-              }
-            />
+            <Route element={<RequireAdmin />}>
+              <Route path="users" element={<AllUser />} />
+              <Route path="add-doctor" element={<AddDoctor />} />
+              <Route path="manage-doctors" element={<ManageDoctors />} />
+            </Route>
 
             <Route path="reviews" element={<MyReview />} />
           </Route>

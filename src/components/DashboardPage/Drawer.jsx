@@ -107,6 +107,18 @@ export const Drawer = () => {
                   Add Doctor
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/dashboard/manage-doctors"
+                  className={
+                    matchRoute('/dashboard/manage-doctors')
+                      ? 'bg-primary'
+                      : 'bg-transparent hover:bg-base-200'
+                  }
+                >
+                  Manage Doctors
+                </Link>
+              </li>
             </>
           )}
         </ul>

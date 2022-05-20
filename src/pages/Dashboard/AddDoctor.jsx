@@ -26,6 +26,7 @@ export const AddDoctor = () => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
   const { data, isLoading } = useQuery('services', getServiceNames);
@@ -61,6 +62,8 @@ export const AddDoctor = () => {
               icon: 'success',
               confirmButtonColor: '#19D3AE',
             });
+
+            reset();
           }
         }
       } catch (error) {
