@@ -26,7 +26,6 @@ export const AddDoctor = () => {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm();
 
   const { data, isLoading } = useQuery('services', getServiceNames);
@@ -62,8 +61,6 @@ export const AddDoctor = () => {
               icon: 'success',
               confirmButtonColor: '#19D3AE',
             });
-
-            reset();
           }
         }
       } catch (error) {
@@ -72,7 +69,7 @@ export const AddDoctor = () => {
             toastId,
           });
         } else {
-          toast.error('Could not add a doctor.', {
+          toast.error(error.response.data, {
             toastId,
           });
         }

@@ -113,13 +113,7 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
             </select>
             {errors.slot && <p className="text-error w-full">{errors.slot.message}</p>}
             <input
-              {...register('phoneNumber', {
-                required: 'Phone number is required',
-                pattern: {
-                  value: phoneRegex,
-                  message: 'Not a valid phone number',
-                },
-              })}
+              {...register('phoneNumber', { required: 'Phone number is required' })}
               type="text"
               placeholder="Phone Number"
               className="input w-full max-w-lg border-[#cfcfcf]"
