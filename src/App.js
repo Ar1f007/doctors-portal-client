@@ -8,6 +8,7 @@ import {
   MyAppointments,
   UserExists,
   RequireAdmin,
+  Payment,
 } from './components';
 import {
   Appointment,
@@ -58,6 +59,7 @@ function App() {
             </Route>
 
             <Route path="reviews" element={<MyReview />} />
+            <Route path="payment/:id" element={<Payment />} />
           </Route>
         </Route>
 

@@ -24,6 +24,10 @@ export const MyAppointments = () => {
     fetchData();
   }, [user, navigate]);
 
+  const handlePayment = (id) => {
+    navigate(`/dashboard/payment/${id}`, { state: { email: user?.email } });
+  };
+
   return (
     <main className="sm:pb-20">
       <h2 className="capitalize text-xl lg:text-2xl text-neutral lg:-mt-5 text-center font-medium">
@@ -38,15 +42,26 @@ export const MyAppointments = () => {
               <th>Treatment</th>
               <th>Date</th>
               <th>Time</th>
+              <th>Price</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {appointments?.map(({ _id, date, slot, treatment }, index) => (
+            {appointments?.map(({ _id, date, slot, treatment, price, paid }, index) => (
               <tr key={_id}>
                 <th>{index + 1}</th>
                 <td>{treatment}</td>
                 <td>{date}</td>
                 <td>{slot}</td>
+                <td>{price?.toFixed(2)}</td>
+                <td>
+                  {price && !paid && (
+                    <button className="btn btn-primary" onClick={() => handlePayment(_id)}>
+                      Pay
+                    </button>
+                  )}
+                  {price && paid && <button className="btn btn-primary">Paid</button>}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -56,6 +71,8 @@ export const MyAppointments = () => {
               <th>Treatment</th>
               <th>Date</th>
               <th>Time</th>
+              <th>Price</th>
+              <th>Action</th>
             </tr>
           </tfoot>
         </table>

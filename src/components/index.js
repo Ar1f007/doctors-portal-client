@@ -6,6 +6,8 @@ export { RequireAdmin } from './Auth/RequireAdmin';
 export { Drawer } from './DashboardPage/Drawer';
 export { MyReview } from './DashboardPage/MyReview';
 export { MyAppointments } from './DashboardPage/MyAppointments';
+export { Payment } from './DashboardPage/Payment';
+export { CheckoutForm } from './DashboardPage/CheckoutForm';
 
 export { Banner } from './Homepage/Banner';
 export { Info } from './Homepage/Info';

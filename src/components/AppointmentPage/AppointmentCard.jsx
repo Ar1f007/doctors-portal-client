@@ -1,5 +1,5 @@
 export const AppointmentCard = ({ service, setTreatment }) => {
-  const { name, slots } = service;
+  const { name, slots, price } = service;
   const slotsCount = slots?.length;
 
   return (
@@ -24,6 +24,7 @@ export const AppointmentCard = ({ service, setTreatment }) => {
             <p>No space available</p>
           )}
         </div>
+        <p className="small">Service Charge: ${price.toFixed(2)}</p>
         <div className="card-actions justify-center mt-2">
           <label
             htmlFor="bookingModal"

@@ -13,7 +13,7 @@ const phoneRegex =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
 export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
-  const { _id, name, slots } = treatment;
+  const { _id, name, slots, price } = treatment;
   const [user] = useAuthState(auth);
 
   const {
@@ -34,6 +34,7 @@ export const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
       date: formattedDate,
       slot,
       phone: values.phoneNumber,
+      price,
     };
 
     const { data } = await authFetch.post('/bookings', bookingData);
