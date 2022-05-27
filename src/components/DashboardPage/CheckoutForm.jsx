@@ -69,8 +69,7 @@ export const CheckoutForm = ({ appointment }) => {
         appointment: _id,
         transactionId: paymentIntent.id,
       };
-      const { data } = await authFetch.patch(`/update-booking/${_id}`, payment);
-      console.log(data);
+      await authFetch.patch(`/update-booking/${_id}`, payment);
     }
   };
 

@@ -51,25 +51,23 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<MyAppointments />} />
+            <Route path="reviews" element={<MyReview />} />
+            <Route path="payment/:id" element={<Payment />} />
 
             <Route element={<RequireAdmin />}>
               <Route path="users" element={<AllUser />} />
               <Route path="add-doctor" element={<AddDoctor />} />
               <Route path="manage-doctors" element={<ManageDoctors />} />
             </Route>
-
-            <Route path="reviews" element={<MyReview />} />
-            <Route path="payment/:id" element={<Payment />} />
           </Route>
         </Route>
-
-        <Route path="/about" element={<About />} />
 
         <Route element={<UserExists />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<SignUp />} />
         </Route>
 
+        <Route path="/about" element={<About />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

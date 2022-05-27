@@ -61,7 +61,7 @@ export const Drawer = () => {
           {/* <!-- Sidebar content here --> */}
           <li>
             <Link
-              to="/dashboard"
+              to="dashboard"
               className={
                 matchRoute('/dashboard') ? 'bg-primary' : 'bg-transparent hover:bg-base-200'
               }
